@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!--ie min version is edge-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--get mobile width and height cancel the initial event -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<!--delete apple initial tools and list -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--delete apple initial time -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+
+		<!--<link rel="stylesheet" href="stylesheets/bootstrap.min.js" />-->
+		<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+		<!--<script type="text/javascript" src="/javascripts/jquery.min.js"></script>-->
+		<style>
+			.borderred {
+				border-color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="panel panel-default ">
+						<div class="panel-heading">百度新闻后台管理器</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="panel panel-default ">
+						<div class="panel-heading">新闻生成器</div>
+						<div class="panel-body">
+							<form>
+								<div class="form-group">
+									<label for="newstitle">新闻标题 </label>
+									<input type="text" class="form-control news" id="newstitle" placeholder="title">
+								</div>
+								<div class="form-group">
+									<label for="newscontent">新闻正文 </label>
+									<textarea name="" rows="3" cols="" id="newscontent" placeholder="content" class="form-control news"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="newsimageurl">新闻图片地址 </label>
+									<input type="url" class="form-control news" id="newsimageurl" placeholder="http://www.baidu.com/imageurl">
+								</div>
+								<div class="form-group">
+									<label for="newsfrom">新闻来源 </label>
+									<input type="text" class="form-control news" id="newsfrom" placeholder="from">
+								</div>
+								<div class="form-group">
+									<label for="newsdate">新闻日期 </label>
+									<input type="date" class="form-control news" id="newsdate" placeholder="2017-01-01">
+									<script>
+										(function() {
+											function a(a) {
+												return a >= 10 ? a : "0" + a;
+											}
+											let oDate = new Date();
+											$('#newsdate').val(`${oDate.getFullYear()}-${a(oDate.getMonth()+1)}-${a(oDate.getDate())}`);
+										})();
+									</script>
+								</div>
+								<div class="form-group">
+									<label for="newstag">新闻标签</label>
+									<select class="form-control news" id="newstag">
+										<option selected="">推荐</option>
+										<option>百家</option>
+										<option>本地</option>
+										<option>娱乐</option>
+										<option>社会</option>
+										<option>军事</option>
+										<option>搞笑</option>
+										<option>女人</option>
+										<option>互联网</option>
+										<option>科技</option>
+										<option>生活</option>
+										<option>国际</option>
+										<option>国内</option>
+										<option>体育</option>
+										<option>汽车</option>
+										<option>财经</option>
+										<option>房产</option>
+										<option>时尚</option>
+										<option>教育</option>
+										<option>游戏</option>
+										<option>旅游</option>
+										<option>人文</option>
+										<option>创意</option>
+
+									</select>
+								</div>
+								<button type="button" class="btn btn-primary newssend" id="newssubmit">提交</button>
+								<button type="button" style="display:none" class="btn btn-info newssend" id="newssave">保存</button>
+								<button type="button" class="btn btn-primary" id="clear">清空</button>
+								<button type="button" id="btnid1">test</button>
+								<!--<script>
+									(function() {
+										$('#btnid1').click(function(){
+											for(var i = 0; i <1; i++) {
+												$.ajax( {
+													type: 'post',
+													url: '/admin/new',
+													success:function(data){
+														console.log(data[0]['COUNT(*)']);
+														for(let index in data){
+															console.log(data[index]);
+														}
+
+													}
+
+												});
+											}
+											})
+									})();
+								</script>-->
+
+								<div class="dataid" id="dataid" style="display:none"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="panel panel-default ">
+						<div class="panel-heading">新闻列表</div>
+						<div class="panel-body" style="overflow:hidden;height:500px">
+							<!--<div><button>id排序</button></div>-->
+							<table class="table">
+								<thead>
+									<tr>
+										<th>id</th>
+										<th>新闻标题</th>
+										<th>新闻时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id="newstbody">
+									<tr class="newstr">
+										<th class="newsid" scope="row">1</th>
+										<td class="newstitle">你的名字</td>
+										<td class="newsdate">2017-06-02</td>
+										<td class="newsbutton"><button class="btn btn-danger">删除</button></td>
+										<td class="newsdata" style="display:none">{id:"id1", title:"title1", content:"content111", imageurl:"imageurl1", from:"from1", date:"2017-04-05", tag:"推荐"}
+
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td>Jacob</td>
+										<td>Thornton</td>
+										<td>@fat</td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td>Larry</td>
+										<td>the Bird</td>
+										<td>@twitter</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="panel-footer">
+							<nav aria-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="newspage" >
+									<li>
+										<a href="#" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">1</a>
+									</li>
+									<li>
+										<a href="#">2</a>
+									</li>
+									<li>
+										<a href="#">3</a>
+									</li>
+									<li>
+										<a href="#">4</a>
+									</li>
+									<li>
+										<a href="#">5</a>
+									</li>
+
+									<li>
+										<a href="#" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="/javascripts/admin2.js"></script>
+	<!--<script type="text/javascript" src="../public/javascripts/admin.js"></script>-->
+
+</html>
